@@ -1,2 +1,1 @@
-console.log('deeu')
-
+const oi = "oii";
