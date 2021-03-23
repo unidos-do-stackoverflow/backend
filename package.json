@@ -19,5 +19,10 @@
   "homepage": "https://github.com/squad-41/backend#readme",
   "dependencies": {
     "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.19.0",
+    "@typescript-eslint/parser": "^4.19.0",
+    "eslint": "^7.22.0"
   }
 }
