@@ -4,7 +4,7 @@ import TemplateController from '../controllers/TemplateController';
 const templateRoutes = Router();
 const template = new TemplateController();
 
-// Rota POST
+templateRoutes.get('/', template.get);
 templateRoutes.post('/', template.post);
 
 export default templateRoutes;
