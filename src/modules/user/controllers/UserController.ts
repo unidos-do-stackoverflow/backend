@@ -47,4 +47,22 @@ export class UserController {
 				return res.status(500).send({ error: error.message });
 			}
 	}
+
+	async login(req: Request, res: Response): Promise<Response> {
+
+		try {
+
+			const { email, password } = req.body
+
+			const token = await userBusiness.getUserByEmail({
+				email,
+				password
+			})
+
+			return res.status(201).send({ token: token })
+
+		} catch (error) {
+			return res.status(500).send({ error: error.message })
+		}
+	}
 }
