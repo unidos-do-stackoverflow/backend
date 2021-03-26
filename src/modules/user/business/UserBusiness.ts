@@ -2,6 +2,7 @@ import { BaseError } from '../../../shared/infra/error/BaseError';
 import { InvalidInputError } from '../../../shared/infra/error/InvalidInputError';
 import { IdGenerator } from '../../../shared/infra/service/IdGenerator';
 import { UserDataBase } from '../data/UserDataBase';
+import { ILoginInputDTO } from '../interfaces/DTO/ILoginInputDTO';
 import { ISignupInputDTO } from '../interfaces/DTO/ISignUpInputDTO';
 import { Gender } from '../interfaces/IUser';
 import { Authenticator } from '../services/Autheticator';
@@ -67,4 +68,37 @@ export class UserBusiness {
 		return acessToken;
 
 	}
+
+	async getUserByEmail(input: ILoginInputDTO): Promise<string> {
+		if (!input.email || !input.password) {
+			throw new InvalidInputError('enter "email" and "password"');
+		}
+
+		if (!input.email.includes('@')) {
+			throw new InvalidInputError('Invalid email format');
+		}
+
+		const userFromDB = await this.userDataBase.selectUserByEmail(input.email);
+
+		if (!userFromDB) {
+			throw new InvalidInputError('Invalid email. Check if the email entered is correct or register');
+		}
+
+		const passwordIsCorrect = await this.hashManager.compare(
+			input.password,
+			userFromDB.password
+		);
+
+		if (!passwordIsCorrect) {
+			throw new InvalidInputError('Invalid password');
+		}
+
+		const acessToken = this.authenticator.generate({
+			id: userFromDB.id
+		});
+
+		return acessToken
+
+	}
+
 }
