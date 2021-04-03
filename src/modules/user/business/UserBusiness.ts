@@ -78,7 +78,7 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid email format');
 		}
 
-		const userFromDB = await this.userDataBase.selectUserByEmail(input.email);
+		const userFromDB = await this.userDataBase.getByEmail(input.email);
 
 		if (!userFromDB) {
 			throw new InvalidInputError('Invalid email. Check if the email entered is correct or register');
