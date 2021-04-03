@@ -96,10 +96,6 @@ export class ChildrenBusiness {
 
 		await this.childrenDataBase.create(children);
 
-		console.log(input);
-		console.log(children);
-
-
 		return children
 
 	}
