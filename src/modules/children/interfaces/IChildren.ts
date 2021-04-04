@@ -1,3 +1,5 @@
+import { Gender } from '../../user/interfaces/IUser';
+
 export interface IChildren {
 	id: string,
 	name: string,
@@ -5,27 +7,21 @@ export interface IChildren {
 	gender: Gender,
 	address: string,
 	school: string,
-	year: string,
+	year: Year,
 	user_id: string
 }
 
-export enum Gender {
-	Female = 'feminino',
-	Male = 'masculino',
-	PreferNotToSay = 'prefiro não dizer'
-}
-
 export enum Year {
-	firstYear = '1° ano - ensino fundamental I',
-	secondYear = '2° ano - ensino fundamental I',
-	thirdYear = '3° ano - ensino fundamental I',
+	FirstYear = '1° ano - ensino fundamental I',
+	SecondYear = '2° ano - ensino fundamental I',
+	ThirdYear = '3° ano - ensino fundamental I',
 	ForthYear = '4° ano - ensino fundamental I',
-	fifthYear = '5° ano - ensino fundamental I',
-	sixthYear = '6° ano - ensino fundamental I',
-	seventhYear = '7° ano - ensino fundamental II',
-	eighthYear = '8° ano - ensino fundamental II',
-	ninthGrade = '9° ano - ensino fundamental II',
-	firstYearhighSchool  = '1° ano - ensino médio',
-	secondYearhighSchool  = '2° ano - ensino médio',
-	thirdYearhighSchool  = '3° ano - ensino médio'
+	FifthYear = '5° ano - ensino fundamental I',
+	SixthYear = '6° ano - ensino fundamental I',
+	SeventhYear = '7° ano - ensino fundamental II',
+	EighthYear = '8° ano - ensino fundamental II',
+	NinthGrade = '9° ano - ensino fundamental II',
+	FirstYearhighSchool  = '1° ano - ensino médio',
+	SecondYearhighSchool  = '2° ano - ensino médio',
+	ThirdYearhighSchool  = '3° ano - ensino médio'
 }

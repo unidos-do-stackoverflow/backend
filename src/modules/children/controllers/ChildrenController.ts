@@ -15,7 +15,7 @@ const childrenBusiness = new ChildrenBusiness(
 
 export class ChildrenController {
 
-	async create(req: Request, res: Response): Promise<Response> {
+	async create(req: Request, res: Response) {
 
 		try {
 
@@ -31,20 +31,23 @@ export class ChildrenController {
 
 			} = req.body;
 
-			const children: IChildrenInputDTO = {
+			const children: IChildrenInputDTO =  await childrenBusiness.create({
 				name,
 				dateOfBirth,
 				gender,
 				address,
 				school,
 				year
-			}
+			}, authorization as string)
 
-			await childrenBusiness.create(children, authorization as string)
+			console.log('controller' +children)
+
+			// await childrenBusiness.create(children, authorization as string)
 
 			return res.status(201).send({
 				success: true,
-				message: 'Children created successfully'
+				message: 'Children created successfully',
+				children
 			});
 
 		} catch (error) {

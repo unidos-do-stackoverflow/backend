@@ -1,11 +1,12 @@
 import { BaseError } from '../../../shared/infra/error/BaseError';
-import { InvalidInputError } from '../../../shared/infra/error/InvalidInputError';
+// import { InvalidInputError } from '../../../shared/infra/error/InvalidInputError';
 import { IdGenerator } from '../../../shared/infra/service/IdGenerator';
 import { UserDataBase } from '../../user/data/UserDataBase';
+import { Gender } from '../../user/interfaces/IUser';
 import { Authenticator } from '../../user/services/Autheticator';
 import { ChildrenDataBase } from '../data/ChildrenDataBase';
 import { IChildrenInputDTO } from '../interfaces/DTO/IChildrenInputDTO';
-import { Gender, IChildren, Year } from '../interfaces/IChildren';
+import { IChildren, Year } from '../interfaces/IChildren';
 
 export class ChildrenBusiness {
 	constructor(
@@ -31,29 +32,29 @@ export class ChildrenBusiness {
 	async checkedYear(input: string): Promise<Year> {
 		switch (input) {
 			case '1° ano - ensino fundamental I':
-				return Year.firstYear;
+				return Year.FirstYear;
 			case '2° ano - ensino fundamental I':
-				return Year.secondYear;
+				return Year.SecondYear;
 			case '3° ano - ensino fundamental I':
-				return Year.thirdYear;
+				return Year.ThirdYear;
 			case '4° ano - ensino fundamental I':
 				return Year.ForthYear;
 			case '5° ano - ensino fundamental I':
-				return Year.fifthYear;
+				return Year.FifthYear;
 			case '6° ano - ensino fundamental I':
-				return Year.sixthYear;
+				return Year.SixthYear;
 			case '7° ano - ensino fundamental II':
-				return Year.seventhYear;
+				return Year.SeventhYear;
 			case '8° ano - ensino fundamental II':
-				return Year.eighthYear;
+				return Year.EighthYear;
 			case '9° ano - ensino fundamental II':
-				return Year.ninthGrade;
+				return Year.NinthGrade;
 			case '1° ano - ensino médio':
-				return Year.firstYearhighSchool;
+				return Year.FirstYearhighSchool;
 				case '2° ano - ensino médio':
-				return Year.secondYearhighSchool
+				return Year.SecondYearhighSchool
 				case '3° ano - ensino médio':
-				return Year.thirdYearhighSchool;
+				return Year.ThirdYearhighSchool;
 			default:
 				throw new BaseError('invalid year');
 		}
@@ -61,17 +62,25 @@ export class ChildrenBusiness {
 
 	async create(input: IChildrenInputDTO, authorization: string): Promise<IChildren> {
 
-		if (!input.name || !input.dateOfBirth || !input.gender || !input.address || !input.school ||!input.year) {
-			throw new InvalidInputError('Invalid entry for registration. Enter the name, date of birth, gender, address, year and school');
+		// if (!input.name || !input.dateOfBirth || !input.gender || !input.address || !input.school ||!input.year) {
+		// 	throw new InvalidInputError('Invalid entry for registration. Enter the name, date of birth, gender, address, year and school');
+		// }
+
+		// if(!authorization) {
+		// 	throw new InvalidInputError('You must inform authorization token in headers');
+		// }
+
+		if(input.gender) {
+			console.log('deu')
 		}
 
-		if(!authorization) {
-			throw new InvalidInputError('You must inform authorization token in headers');
+		if(input.year) {
+			console.log('deu year')
 		}
 
-		const gender = await this.checkedGender(input.gender);
+		// const gender = await this.checkedGender(input.gender);
 
-		const year = await this.checkedYear(input.year)
+		// const year = await this.checkedYear(input.year)
 
 		const verifyToken = this.authenticator.getToken(authorization);
 
@@ -87,16 +96,16 @@ export class ChildrenBusiness {
 			id,
 			name: input.name,
 			dateOfBirth: input.dateOfBirth,
-			gender,
+			gender: input.gender,
 			address: input.address,
 			school: input.school,
-			year,
+			year: input.year,
 			user_id: user_id.id,
 		}
 
-		await this.childrenDataBase.create(children);
+		console.log(children)
 
-		return children
+		return await this.childrenDataBase.create(children);
 
 	}
 

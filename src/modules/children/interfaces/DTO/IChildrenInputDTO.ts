@@ -1,8 +1,11 @@
+import { Gender } from '../../../user/interfaces/IUser';
+import { Year } from '../IChildren';
+
 export interface IChildrenInputDTO {
 	name: string,
 	dateOfBirth: string,
-	gender: string,
+	gender: Gender,
 	address: string,
 	school: string,
-	year: string
+	year: Year
 }
