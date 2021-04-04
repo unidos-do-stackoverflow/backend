@@ -63,9 +63,9 @@ export class UserBusiness {
 
 		await this.userDataBase.create(user);
 
-		const acessToken = this.authenticator.generate({ id });
+		const accessToken = this.authenticator.generate({ id });
 
-		return acessToken;
+		return accessToken;
 
 	}
 
@@ -93,11 +93,11 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid password');
 		}
 
-		const acessToken = this.authenticator.generate({
+		const accessToken = this.authenticator.generate({
 			id: userFromDB.id
 		});
 
-		return acessToken
+		return accessToken
 
 	}
 

@@ -44,7 +44,7 @@ export class ChildrenController {
 
 			return res.status(201).send({
 				success: true,
-				message: 'Children created sucessfully'
+				message: 'Children created successfully'
 			});
 
 		} catch (error) {
@@ -52,4 +52,3 @@ export class ChildrenController {
 		}
 	}
 }
-
