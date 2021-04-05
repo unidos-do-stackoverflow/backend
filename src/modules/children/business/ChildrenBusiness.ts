@@ -1,5 +1,5 @@
 import { BaseError } from '../../../shared/infra/error/BaseError';
-// import { InvalidInputError } from '../../../shared/infra/error/InvalidInputError';
+import { InvalidInputError } from '../../../shared/infra/error/InvalidInputError';
 import { IdGenerator } from '../../../shared/infra/service/IdGenerator';
 import { UserDataBase } from '../../user/data/UserDataBase';
 import { Gender } from '../../user/interfaces/IUser';
@@ -62,25 +62,17 @@ export class ChildrenBusiness {
 
 	async create(input: IChildrenInputDTO, authorization: string): Promise<IChildren> {
 
-		// if (!input.name || !input.dateOfBirth || !input.gender || !input.address || !input.school ||!input.year) {
-		// 	throw new InvalidInputError('Invalid entry for registration. Enter the name, date of birth, gender, address, year and school');
-		// }
-
-		// if(!authorization) {
-		// 	throw new InvalidInputError('You must inform authorization token in headers');
-		// }
-
-		if(input.gender) {
-			console.log('deu')
+		if (!input.name || !input.dateOfBirth || !input.gender || !input.address || !input.school ||!input.year) {
+			throw new InvalidInputError('Invalid entry for registration. Enter the name, date of birth, gender, address, year and school');
 		}
 
-		if(input.year) {
-			console.log('deu year')
+		if(!authorization) {
+			throw new InvalidInputError('You must inform authorization token in headers');
 		}
 
-		// const gender = await this.checkedGender(input.gender);
+		const gender = await this.checkedGender(input.gender);
 
-		// const year = await this.checkedYear(input.year)
+		const year = await this.checkedYear(input.year)
 
 		const verifyToken = this.authenticator.getToken(authorization);
 
@@ -96,14 +88,12 @@ export class ChildrenBusiness {
 			id,
 			name: input.name,
 			dateOfBirth: input.dateOfBirth,
-			gender: input.gender,
+			gender,
 			address: input.address,
 			school: input.school,
-			year: input.year,
+			year,
 			user_id: user_id.id,
-		}
-
-		console.log(children)
+		};
 
 		return await this.childrenDataBase.create(children);
 
