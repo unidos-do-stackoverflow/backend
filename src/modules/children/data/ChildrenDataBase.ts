@@ -24,7 +24,7 @@ export class ChildrenDataBase extends DataBase {
 			})
 			.into(ChildrenDataBase.tableName);
 
-			return children
+			return children;
 
 		} catch (error) {
 			throw new BaseError(error.message || error.sqlMessage);
