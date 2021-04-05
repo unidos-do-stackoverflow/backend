@@ -15,7 +15,7 @@ const childrenBusiness = new ChildrenBusiness(
 
 export class ChildrenController {
 
-	async create(req: Request, res: Response) {
+	async create(req: Request, res: Response): Promise<Response> {
 
 		try {
 
@@ -39,10 +39,6 @@ export class ChildrenController {
 				school,
 				year
 			}, authorization as string)
-
-			console.log('controller' +children)
-
-			// await childrenBusiness.create(children, authorization as string)
 
 			return res.status(201).send({
 				success: true,
