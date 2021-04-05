@@ -25,7 +25,8 @@ export class UserController {
 					dateOfBirth,
 					cpf,
 					numberOfChildren,
-					address
+					address,
+					photo
 
 				} = req.body;
 
@@ -39,6 +40,7 @@ export class UserController {
 						cpf,
 						numberOfChildren,
 						address,
+						photo
 					});
 
 				return	res.status(201).send({
@@ -71,4 +73,24 @@ export class UserController {
 			return res.status(500).send({ error: error.message });
 		}
 	}
+
+	async getChildren(req: Request, res: Response): Promise<Response> {
+		try {
+
+			const { authorization } = req.headers;
+
+			const { id} = req.params;
+
+			const children = await userBusiness.getChildren(id, authorization as string);
+
+			return res.status(200).send({
+				sucess: true,
+				children
+			});
+
+		} catch (error) {
+			return res.status(500).send({ error: error.message });
+		}
+	}
+
 }

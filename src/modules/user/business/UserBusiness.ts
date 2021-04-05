@@ -8,6 +8,8 @@ import { Gender } from '../interfaces/IUser';
 import { Authenticator } from '../services/Autheticator';
 import { HashManager } from '../services/HashManager';
 
+//TODO: fazer a lógica para receber arquivos de fotos
+
 export class UserBusiness {
 	constructor(
 		private userDataBase: UserDataBase,
@@ -58,7 +60,8 @@ export class UserBusiness {
 			cpf: input.cpf,
 			numberOfChildren: input.numberOfChildren,
 			address: input.address,
-			password: hashPassword
+			password: hashPassword,
+			photo: input.photo
 		};
 
 		await this.userDataBase.create(user);
@@ -100,5 +103,22 @@ export class UserBusiness {
 		return accessToken
 
 	}
+
+	async getChildren(id: string, authorization: string): Promise<void> {
+
+		const verifyToken = this.authenticator.getToken(authorization);
+
+		if (!verifyToken) {
+			throw new BaseError('You must logged in ');
+		}
+
+    // if (!user_id) {
+    //     throw new InvalidInputError('Invalid id. enter id by params ');
+    // }
+
+    const children = await this.userDataBase.getChildren(id);
+
+    return children
+}
 
 }
