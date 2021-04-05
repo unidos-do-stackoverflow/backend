@@ -63,9 +63,9 @@ export class UserBusiness {
 
 		await this.userDataBase.create(user);
 
-		const acessToken = this.authenticator.generate({ id });
+		const accessToken = this.authenticator.generate({ id });
 
-		return acessToken;
+		return accessToken;
 
 	}
 
@@ -78,7 +78,7 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid email format');
 		}
 
-		const userFromDB = await this.userDataBase.selectUserByEmail(input.email);
+		const userFromDB = await this.userDataBase.getByEmail(input.email);
 
 		if (!userFromDB) {
 			throw new InvalidInputError('Invalid email. Check if the email entered is correct or register');
@@ -93,11 +93,11 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid password');
 		}
 
-		const acessToken = this.authenticator.generate({
+		const accessToken = this.authenticator.generate({
 			id: userFromDB.id
 		});
 
-		return acessToken
+		return accessToken
 
 	}
 

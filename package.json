@@ -21,9 +21,18 @@
 	},
 	"homepage": "https://github.com/squad-41/backend#readme",
 	"dependencies": {
+		"@types/bcryptjs": "^2.4.2",
+		"@types/jsonwebtoken": "^8.5.1",
+		"@types/knex": "^0.16.1",
+		"@types/uuid": "^8.3.0",
+		"bcryptjs": "^2.4.3",
 		"cors": "^2.8.5",
 		"dotenv": "^8.2.0",
-		"express": "^4.17.1"
+		"express": "^4.17.1",
+		"jsonwebtoken": "^8.5.1",
+		"knex": "^0.95.3",
+		"mysql": "^2.18.1",
+		"uuid": "^8.3.2"
 	},
 	"devDependencies": {
 		"@commitlint/cli": "^12.0.1",

@@ -41,7 +41,10 @@ export class UserController {
 						address,
 					});
 
-				return	res.status(201).send({ token: token });
+				return	res.status(201).send({
+					success: true,
+					token: token
+				});
 
 			} catch (error) {
 				return res.status(500).send({ error: error.message });
@@ -52,17 +55,20 @@ export class UserController {
 
 		try {
 
-			const { email, password } = req.body
+			const { email, password } = req.body;
 
 			const token = await userBusiness.getUserByEmail({
 				email,
 				password
-			})
+			});
 
-			return res.status(201).send({ token: token })
+			return res.status(201).send({
+				success: true,
+				token: token
+			});
 
 		} catch (error) {
-			return res.status(500).send({ error: error.message })
+			return res.status(500).send({ error: error.message });
 		}
 	}
 }
