@@ -84,14 +84,42 @@ BCRYPT_COST = 12
 ```sql
 CREATE TABLE User (
 	id VARCHAR(255) PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    gender VARCHAR(50) NOT NULL,
+    dateOfBirth VARCHAR(50) NOT NULL,
+    cpf VARCHAR(255) UNIQUE NOT NULL,
+    numberOfChildren INT NOT NULL,
+    address VARCHAR(255) DEFAULT null
+);
+```
+
+### Crianças
+```
+CREATE TABLE Children (
+	id VARCHAR(255) PRIMARY KEY,
   name VARCHAR(255) NOT NULL,
-  email VARCHAR(255) UNIQUE NOT NULL,
-  password VARCHAR(255) NOT NULL,
-  gender VARCHAR(50) NOT NULL,
-  dateOfBirth VARCHAR(50) NOT NULL,
-  cpf VARCHAR(255) UNIQUE NOT NULL,
-  numberOfChildren INT NOT NULL,
-  address VARCHAR(255) DEFAULT null
+  dateOfBirth VARCHAR(255) NOT NULL,
+  gender VARCHAR(100) NOT NULL,
+  address VARCHAR(255) NOT NULL,
+  school VARCHAR(255) NOT NULL,
+  year VARCHAR(255) NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES User(id)
+);
+```
+
+### Posts
+```
+CREATE TABLE Feed (
+	id VARCHAR(255) PRIMARY KEY,
+  description VARCHAR(1000) NOT NULL,
+  photo VARCHAR(255),
+  likes FLOAT,
+  created_at VARCHAR(100) NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  FOREIGN KEY(user_id) REFERENCES User(id)
 );
 ```
 
