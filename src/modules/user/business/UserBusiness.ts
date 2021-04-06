@@ -8,6 +8,8 @@ import { Gender } from '../interfaces/IUser';
 import { Authenticator } from '../services/Autheticator';
 import { HashManager } from '../services/HashManager';
 
+//TODO: fazer a lógica para receber arquivos de fotos
+
 export class UserBusiness {
 	constructor(
 		private userDataBase: UserDataBase,
@@ -58,14 +60,15 @@ export class UserBusiness {
 			cpf: input.cpf,
 			numberOfChildren: input.numberOfChildren,
 			address: input.address,
-			password: hashPassword
+			password: hashPassword,
+			photo: input.photo
 		};
 
 		await this.userDataBase.create(user);
 
-		const acessToken = this.authenticator.generate({ id });
+		const accessToken = this.authenticator.generate({ id });
 
-		return acessToken;
+		return accessToken;
 
 	}
 
@@ -78,7 +81,7 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid email format');
 		}
 
-		const userFromDB = await this.userDataBase.selectUserByEmail(input.email);
+		const userFromDB = await this.userDataBase.getByEmail(input.email);
 
 		if (!userFromDB) {
 			throw new InvalidInputError('Invalid email. Check if the email entered is correct or register');
@@ -93,12 +96,29 @@ export class UserBusiness {
 			throw new InvalidInputError('Invalid password');
 		}
 
-		const acessToken = this.authenticator.generate({
+		const accessToken = this.authenticator.generate({
 			id: userFromDB.id
 		});
 
-		return acessToken
+		return accessToken
 
 	}
+
+	async getChildren(id: string, authorization: string): Promise<void> {
+
+		const verifyToken = this.authenticator.getToken(authorization);
+
+		if (!verifyToken) {
+			throw new BaseError('You must logged in ');
+		}
+
+    // if (!user_id) {
+    //     throw new InvalidInputError('Invalid id. enter id by params ');
+    // }
+
+    const children = await this.userDataBase.getChildren(id);
+
+    return children
+}
 
 }

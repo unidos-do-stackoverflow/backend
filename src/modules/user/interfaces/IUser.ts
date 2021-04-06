@@ -8,7 +8,8 @@ export interface IUser {
 	dateOfBirth: string,
 	cpf: string,
 	numberOfChildren: number,
-	address?: string
+	address?: string,
+	photo?: string
 
 }
 
